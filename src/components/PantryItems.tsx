@@ -3,7 +3,7 @@ import './PantryItems.scss'
 const PantryItems = () => {
   return (
     <div className="home-button">
-      <Link to="/" style={{ color: 'black' }}> Home</Link>
+      <Link to="/" className="link-style"> Home</Link>
     </div>
   );
 };
