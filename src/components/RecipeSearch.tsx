@@ -1,6 +1,35 @@
 import { Link } from "react-router-dom";
 import "./RecipeSearch.scss";
+import { useState } from "react";
+
 const RecipeSearch = () => {
+  //const [inputValue, setInputValue]= useState()
+  const query = "italian wedding soup";
+
+  const searchRecipes = () => {
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const url = `https://api.api-ninjas.com/v1/recipe?query=${query}`;
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "X-Api-Key": apiKey || "",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <>
       <div className="home-button">
@@ -12,7 +41,7 @@ const RecipeSearch = () => {
         <h1>Explore Recipes</h1>
         <div className="center-input">
           <input className="search-input"></input>
-          <button type="submit">
+          <button onClick={searchRecipes} type="submit">
             <img
               src="https://img.icons8.com/?size=50&id=132&format=png"
               className="search-image"
